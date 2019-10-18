@@ -1,32 +1,66 @@
-class User {
-  static final User _singleton = new User._internal();
-  static String _name;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:singleton_pattern/second.dart';
+import 'package:singleton_pattern/user_model.dart';
 
-  factory User() {
-    return _singleton;
-  }
+void main() => runApp(MyApp());
 
-  static String get name => _name;
+class MyApp extends StatelessWidget {
 
   @override
-  String toString() => "Hello, my name is $name.";
-
-  User._internal(){
-    _name = "HANKYU";
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Singleton Pattern Example",
+      theme: ThemeData(appBarTheme: AppBarTheme(color: Colors.red), primaryColor: Colors.pinkAccent),
+      home: My(),
+    );
   }
 }
 
-void main() {
-  // 두 변수에 따로 User객체 선언
-  var tyler = User();
-  var anotherTyler = User();
-
-  print(tyler);
-  print(anotherTyler);
-
-  //identical(object1, object2) : 두 object가 같은 object인지 판별.
-  var samenessCheck = identical(tyler, anotherTyler)
-      ? "We are both the same ${User.name}."
-      : "We are NOT the same. I mean, just look at us.";
-  print(samenessCheck);
+class My extends StatefulWidget {
+  @override
+  _MyState createState() => _MyState();
 }
+
+class _MyState extends State<My> {
+  User hankyu = User();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Singleton Pattern Example"),
+      ),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(50,200,50,0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: 310,
+              height: 50,
+              child: RaisedButton(
+                child: Text("GO to SECOND", style: TextStyle(fontSize: 25, color: Colors.white),),
+                onPressed: (){
+                  print("Button Pressed");
+                  goToDetail();
+                },
+                color: Colors.red,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  goToDetail() {
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Second(firstUser: hankyu,)),
+    );
+  }
+}
+
+
+
+
