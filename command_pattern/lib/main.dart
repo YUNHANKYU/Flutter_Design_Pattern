@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+
 abstract class Receiver {
   Set<String> get actions;
 }
@@ -66,15 +70,80 @@ class LightSwitch {
   }
 }
 
-void main() {
-    var myFavoriteLamp = Light();
-    var iotLightSwitch = LightSwitch(myFavoriteLamp);
+void main() => runApp(MyApp());
 
-    iotLightSwitch.perform("on");
-    iotLightSwitch.perform("off");
-    iotLightSwitch.perform("blink");
-    iotLightSwitch.perform("on");
+class MyApp extends StatelessWidget {
 
-    print("\r\n*** Fancy IoT Switch Logs ***\r\n${iotLightSwitch.history}");
-
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Command Pattern Example",
+      theme: ThemeData(appBarTheme: AppBarTheme(color: Colors.red), primaryColor: Colors.pinkAccent),
+      home: My(),
+    );
+  }
 }
+
+class My extends StatefulWidget {
+  @override
+  _MyState createState() => _MyState();
+}
+
+class _MyState extends State<My> {
+  static var myFavoriteLamp = Light();
+  var iotLightSwitch = LightSwitch(myFavoriteLamp);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Command Pattern Example"),
+      ),
+      body: Container(
+        padding: EdgeInsets.fromLTRB(50,200,50,0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: 310,
+              height: 50,
+              child: RaisedButton(
+                child: Text("ON", style: TextStyle(fontSize: 25, color: Colors.white),),
+                onPressed: (){
+                  print("Button Pressed");
+                  iotLightSwitch.perform("on");
+                },
+                color: Colors.red,
+              ),
+            ),Container(
+              width: 310,
+              height: 50,
+              child: RaisedButton(
+                child: Text("OFF", style: TextStyle(fontSize: 25, color: Colors.white),),
+                onPressed: (){
+                  print("Button Pressed");
+                  iotLightSwitch.perform("off");
+                },
+                color: Colors.red,
+              ),
+            ),Container(
+              width: 310,
+              height: 50,
+              child: RaisedButton(
+                child: Text("--", style: TextStyle(fontSize: 25, color: Colors.white),),
+                onPressed: (){
+                  print("Button Pressed");
+                  iotLightSwitch.perform("blink");
+                },
+                color: Colors.red,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
