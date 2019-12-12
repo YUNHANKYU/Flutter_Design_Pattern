@@ -40,7 +40,7 @@ class Saving implements PowerState {
 
 class NoteBook {
   PowerState _state;
-  Color bgColor = Colors.white;
+  Color bgColor = Colors.black;
 
   NoteBook(this._state);
 

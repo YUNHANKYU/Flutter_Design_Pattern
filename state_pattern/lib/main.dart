@@ -17,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     noteBook = NoteBook(Off());
-    textColor = Colors.black;
+    textColor = Colors.white;
   }
 
   @override
